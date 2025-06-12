@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Senthil Kumaran - Full Stack Developer</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js"
+      defer
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              secondary: "#1e40af",
+              dark: "#0f172a",
+              light: "#f8fafc",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      body {
+        font-family: "Poppins", sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      .gradient-bg dark:bg-gradient-to-r dark:from-blue-900 dark:to-blue-700 {
+        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+      }
+
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body class="bg-light dark:bg-dark dark:bg-dark">
+    <!-- Navigation -->
+    <nav
+      class="fixed w-full bg-white dark:bg-gradient-to-r dark:from-blue-900 dark:to-blue-700 bg-opacity-90 shadow-lg z-50"
+      x-data="{ open: false }"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex-shrink-0 flex items-center">
+            <a href="#" class="text-xl font-bold text-primary">SK</a>
+            <button
+              @click="document.documentElement.classList.toggle('dark')"
+              class="ml-4 text-gray-700 dark:text-gray-200 dark:text-white"
+              title="Toggle Theme"
+            >
+              <i class="fas fa-moon hidden dark:inline"></i>
+              <i class="fas fa-sun dark:hidden"></i>
+            </button>
+          </div>
+
+          <div class="hidden md:flex items-center space-x-8">
+            <a href="#home" class="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 font-medium"
+              >Home</a
+            >
+            <a
+              href="#about"
+              class="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 font-medium"
+              >About</a
+            >
+            <a
+              href="#experience"
+              class="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 font-medium"
+              >Experience</a
+            >
+            <a
+              href="#projects"
+              class="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 font-medium"
+              >Projects</a
+            >
+            <a
+              href="#skills"
+              class="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 font-medium"
+              >Skills</a
+            >
+            <a
+              href="#contact"
+              class="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 font-medium"
+              >Contact</a
+            >
+          </div>
+
+          <div class="flex md:hidden items-center">
+            <button @click="open = !open" class="text-gray-700 dark:text-gray-200">
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  x-show="!open"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+                <path
+                  x-show="open"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div x-show="open" class="md:hidden bg-white dark:bg-[#232b38]">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a
+            href="#home"
+            @click="open = false"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-[#232b38]"
+            >Home</a
+          >
+          <a
+            href="#about"
+            @click="open = false"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-[#232b38]"
+            >About</a
+          >
+          <a
+            href="#experience"
+            @click="open = false"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-[#232b38]"
+            >Experience</a
+          >
+          <a
+            href="#projects"
+            @click="open = false"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-[#232b38]"
+            >Projects</a
+          >
+          <a
+            href="#skills"
+            @click="open = false"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-[#232b38]"
+            >Skills</a
+          >
+          <a
+            href="#contact"
+            @click="open = false"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-[#232b38]"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-12 md:pt-32 md:pb-24 bg-light dark:bg-dark dark:bg-dark">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between"
+        >
+          <div class="md:w-1/2 mb-8 md:mb-0">
+            <h1 class="text-4xl md:text-5xl font-bold text-dark dark:text-white dark:text-white mb-4">
+              Hi, I'm <span class="text-primary">Senthil Kumaran</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-200 dark:text-gray-200 mb-6">
+              Full Stack Developer & AI Enthusiast
+            </p>
+            <p class="text-gray-600 dark:text-gray-300 dark:text-gray-300 mb-8 max-w-lg">
+              I craft robust web solutions and intelligent systems that solve
+              real-world problems, focusing on innovation and user experience.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <a
+                href="#contact"
+                class="bg-primary bg-gradient-to-r from-blue-600 to-blue-800 dark:bg-gradient-to-r dark:from-blue-900 dark:to-blue-700 text-white px-6 py-3 rounded-md shadow-md dark:shadow-lg hover:shadow-lg dark:shadow-xl transition-all border border-transparent dark:border-blue-900 hover:bg-blue-700 dark:hover:bg-blue-900 hover:text-white dark:hover:text-gray-200"
+              >
+                Let's Connect
+              </a>
+              <a
+                href="#projects"
+                class="border border-primary dark:border-blue-900 text-primary dark:text-blue-300 px-6 py-3 rounded-md bg-white dark:bg-[#232b38] hover:bg-primary dark:hover:bg-blue-900 hover:text-white dark:hover:text-gray-200 transition-all"
+              >
+                View Projects
+              </a>
+            </div>
+          </div>
+          <div class="md:w-1/2 flex justify-center">
+            <div class="relative">
+              <div
+                class="absolute -inset-1 rounded-full gradient-bg dark:bg-gradient-to-r dark:from-blue-900 dark:to-blue-700 blur-md opacity-75"
+              ></div>
+              <div
+                class="h-64 w-64 md:h-80 md:w-80 relative rounded-full overflow-hidden border-4 border-white dark:border-[#232b38]"
+              >
+                <img
+                  src="profile.jpg"
+                  alt="Senthil Kumaran"
+                  class="object-cover object-top w-full h-full"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-50 dark:bg-[#181f2a] dark:bg-[#181f2a]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-dark dark:text-white dark:text-white">About Me</h2>
+          <div class="w-24 h-1 bg-primary dark:bg-primary mx-auto mt-4 mb-8"></div>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-center gap-12">
+          <div class="md:w-1/2">
+            <p class="text-gray-700 dark:text-gray-200 mb-6">
+              I'm a Full Stack Developer from Tamil Nadu, India, specializing in
+              building modern web applications and integrating artificial
+              intelligence solutions. With experience as an independent
+              consultant and freelancer, I craft customized digital solutions
+              that solve real business problems.
+            </p>
+            <p class="text-gray-700 dark:text-gray-200 mb-6">
+              My academic background in Information Technology from Annamalai
+              University equipped me with strong fundamentals, which I've built
+              upon through practical experience and continuous learning.
+            </p>
+            <p class="text-gray-700 dark:text-gray-200">
+              I'm passionate about leveraging technology to create meaningful
+              impact, which is evident in my projects focusing on accessibility,
+              environmental conservation, and educational enhancement.
+            </p>
+          </div>
+
+          <div class="md:w-1/2">
+            <div class="grid grid-cols-2 gap-6">
+              <div class="bg-white dark:bg-[#232b38] p-6 rounded-lg shadow-md dark:shadow-lg">
+                <h3 class="text-xl font-semibold text-primary mb-2">
+                  Education
+                </h3>
+                <p class="text-gray-700 dark:text-gray-200">
+                  B.E. in Information Technology, Annamalai University
+                </p>
+              </div>
+              <div class="bg-white dark:bg-[#232b38] p-6 rounded-lg shadow-md dark:shadow-lg">
+                <h3 class="text-xl font-semibold text-primary mb-2">
+                  Location
+                </h3>
+                <p class="text-gray-700 dark:text-gray-200">Nagapattinam, Tamil Nadu, India</p>
+              </div>
+              <div class="bg-white dark:bg-[#232b38] p-6 rounded-lg shadow-md dark:shadow-lg">
+                <h3 class="text-xl font-semibold text-primary mb-2">
+                  Languages
+                </h3>
+                <p class="text-gray-700 dark:text-gray-200">Native Tamil, Fluent English</p>
+              </div>
+              <div class="bg-white dark:bg-[#232b38] p-6 rounded-lg shadow-md dark:shadow-lg">
+                <h3 class="text-xl font-semibold text-primary mb-2">
+                  Achievement
+                </h3>
+                <p class="text-gray-700 dark:text-gray-200">Smart India Hackathon 2024 Finalist</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <!-- <section id="experience" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-dark dark:text-white">My Experience</h2>
+                <div class="w-24 h-1 bg-primary dark:bg-primary mx-auto mt-4 mb-8"></div>
+            </div>
+            
+            <div class="space-y-12">
+                <div class="bg-white dark:bg-[#232b38] p-8 rounded-lg shadow-md dark:shadow-lg">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-dark dark:text-white">Independent Consultant & Freelancer</h3>
+                            <p class="text-primary font-medium">Senthil Kumaran Services</p>
+                        </div>
+                        <div class="mt-2 md:mt-0">
+                            <span class="bg-blue-100 text-primary px-4 py-1 rounded-full text-sm font-medium">2023 - Present</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-200 mb-6">
+                        Developed custom web solutions for clients, implementing a wide range of functionalities tailored to their specific needs.
+                        Involved integrating databases, designing user interfaces, and optimizing performance. I also provided ongoing support
+                        and maintenance to ensure the solutions remained robust and effective over time.
+                    </p>
+                </div>
+                
+                <div class="bg-white dark:bg-[#232b38] p-8 rounded-lg shadow-md dark:shadow-lg">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-dark dark:text-white">Freelance Developer</h3>
+                            <p class="text-primary font-medium">CSC Organization</p>
+                        </div>
+                        <div class="mt-2 md:mt-0">
+                            <span class="bg-blue-100 text-primary px-4 py-1 rounded-full text-sm font-medium">October 2023 - Present</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 text-gray-700 dark:text-gray-200">
+                        <li class="flex items-start">
+                            <span class="text-primary mr-2">•</span>
+                            <span>Developed and implemented a CSC Management App targeting student and staff management, inquiries, admissions, 
+                            and branch admin tasks, improving process efficiency by 40% and reducing administrative workload by 25 hours weekly.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-primary mr-2">•</span>
+                            <span>Developed and optimized a Bot Management System, integrating admin-controlled CRUD operations and comprehensive bot
+                            management features, significantly enhancing data accuracy and reducing manual intervention by 40%.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <section class="bg-light dark:bg-dark py-16">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-dark dark:text-white dark:text-white text-center mb-12">
+          My Experience
+        </h2>
+
+        <div class="relative">
+          <!-- Center vertical line -->
+          <div
+            class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-300"
+          ></div>
+
+          <div class="space-y-12 relative">
+            <!-- AksharaPlus -->
+            <div class="md:grid md:grid-cols-2 md:gap-8 items-center relative">
+              <div class="md:col-start-2">
+                <div
+                  class="bg-white dark:bg-[#232b38] p-6 rounded-lg shadow-md dark:shadow-lg flex items-start gap-4"
+                >
+                  <img
+                    src="https://media.licdn.com/dms/image/v2/D4D0BAQERNq9BEczW7g/company-logo_200_200/B4DZcvos7CG8AI-/0/1748850888908/aksharaplus_logo?e=1755129600&v=beta&t=aAaYWSkY5jOWy5GDqgfvpMN9GU6nDTdUrXwHS-RJPiQ"
+                    alt="AksharaPlus Logo"
+                    class="w-12 h-12 rounded-md object-contain"
+                  />
+                  <div>
+                    <h3 class="text-xl font-semibold text-dark dark:text-white">
+                      Full Stack Developer & Team Lead
+                    </h3>
+                    <p class="text-primary font-medium mb-1">AksharaPlus</p>
+                    <time class="text-sm text-gray-500 mb-3 block"
+                      >May 2025 – Present</time
+                    >
+                    <p class="text-gray-700 dark:text-gray-200 text-sm">
+                      Leading a team of 5 to build a cross-platform LMS.
+                      Handling frontend, backend, and team guidance.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Centered Dot -->
+              <div
+                class="absolute left-1/2 top-1 transform -translate-x-1/2 z-10"
+              >
+                <div
+                  class="w-5 h-5 bg-primary dark:bg-primary rounded-full border-4 border-white dark:border-[#232b38]"
+                ></div>
+              </div>
+            </div>
+
+            <!-- Senthil Kumaran Services -->
+            <div class="md:grid md:grid-cols-2 md:gap-8 items-center relative">
+              <div>
+                <div
+                  class="bg-white dark:bg-[#232b38] p-6 rounded-lg shadow-md dark:shadow-lg flex items-start gap-4"
+                >
+                  <img
+                    src="freelance.svg"
+                    alt="CSC Logo"
+                    class="w-12 h-12 rounded-md object-contain object-right bg-white "
+                  />
+                  <div>
+                    <h3 class="text-xl font-semibold text-dark dark:text-white">
+                      Independent Consultant
+                    </h3>
+                    <p class="text-primary font-medium mb-1">
+                      Senthil Kumaran Services
+                    </p>
+                    <time class="text-sm text-gray-500 mb-3 block"
+                      >Oct 2023 – Apr 2025</time
+                    >
+                    <ul
+                      class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1"
+                    >
+                      <li>
+                        Delivered full-stack web solutions, UI design, database
+                        integration and post-deployment support for SME clients.
+                      </li>
+                      <li>
+                        Built CSC Management App reducing admin workload by 25
+                        hrs/week.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- Centered Dot -->
+              <div
+                class="absolute left-1/2 top-1 transform -translate-x-1/2 z-10"
+              >
+                <div
+                  class="w-5 h-5 bg-primary dark:bg-primary rounded-full border-4 border-white dark:border-[#232b38]"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 bg-gray-50 dark:bg-[#181f2a] dark:bg-[#181f2a]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-dark dark:text-white dark:text-white">Featured Projects</h2>
+          <div class="w-24 h-1 bg-primary dark:bg-primary mx-auto mt-4 mb-8"></div>
+          <p class="text-gray-700 dark:text-gray-200 max-w-2xl mx-auto">
+            Here are some of my most impactful projects that showcase my
+            technical skills and problem-solving approach.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Project 1 -->
+          <div
+            class="bg-white dark:bg-[#232b38] rounded-lg overflow-hidden shadow-md dark:shadow-lg hover:shadow-lg dark:shadow-xl transition-all duration-300 card-hover"
+          >
+            <div class="h-64 bg-gray-200 relative">
+              <img
+                src="vision-assist.png"
+                alt="Vision Assist"
+                class="w-full h-full object-cover"
+              />
+              <div
+                class="absolute top-4 right-4 bg-primary dark:bg-primary text-white text-xs font-bold px-2 py-1 rounded"
+              >
+                AI & Accessibility
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-dark dark:text-white mb-2">Vision Assist</h3>
+              <p class="text-gray-700 dark:text-gray-200 mb-4">
+                Built a web application using computer vision for visually
+                impaired individuals with real-time object detection and
+                guidance. Improved environmental awareness for users by 70%,
+                utilizing the Web Speech API for efficient navigation.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >Computer Vision</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >Web Speech API</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >Django</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >JavaScript</span
+                >
+              </div>
+              <a
+                href="https://github.com/Senthilsk10/vision-assist"
+                class="text-primary font-medium flex items-center hover:underline"
+              >
+                View Project
+                <svg
+                  class="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div
+            class="bg-white dark:bg-[#232b38] rounded-lg overflow-hidden shadow-md dark:shadow-lg hover:shadow-lg dark:shadow-xl transition-all duration-300 card-hover"
+          >
+            <div class="h-64 bg-gray-200 relative">
+              <img
+                src="eco-sense.png"
+                alt="Public Littering Detection System"
+                class="w-full h-full object-fit"
+              />
+              <div
+                class="absolute top-4 right-4 bg-primary dark:bg-primary text-white text-xs font-bold px-2 py-1 rounded"
+              >
+                Environment & AI
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-dark dark:text-white mb-2">
+                Public Littering Detection System
+              </h3>
+              <p class="text-gray-700 dark:text-gray-200 mb-4">
+                Engineered a real-time detection system using YOLOv5 to identify
+                public littering activities. Achieved a 50% reduction in
+                littering incidents within monitored areas, promoting
+                environmental awareness.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >YOLOv5</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >Python</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >OpenCV</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >Deep Learning</span
+                >
+              </div>
+              <a
+                href="https://github.com/Senthilsk10/Ecosense"
+                class="text-primary font-medium flex items-center hover:underline"
+              >
+                View Project
+                <svg
+                  class="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div
+            class="bg-white dark:bg-[#232b38] rounded-lg overflow-hidden shadow-md dark:shadow-lg hover:shadow-lg dark:shadow-xl transition-all duration-300 card-hover"
+          >
+            <div class="h-64 bg-gray-200 relative">
+              <img
+                src="satellite.png"
+                alt="Video Interpolation for Satellite Imagery"
+                class="w-full h-full object-fit"
+              />
+              <div
+                class="absolute top-4 right-4 bg-primary dark:bg-primary text-white text-xs font-bold px-2 py-1 rounded"
+              >
+                Satellite Imagery
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-dark dark:text-white mb-2">
+                Video Interpolation for Satellite Imagery
+              </h3>
+              <p class="text-gray-700 dark:text-gray-200 mb-4">
+                Developed a video generation and interpolation system under ISRO
+                Remote Sensing to enhance satellite imagery visualization.
+                Increased frame continuity by 60%, improving the usability of
+                satellite data for analysis.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >Image Processing</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >Python</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >ISRO</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >WebGIS</span
+                >
+              </div>
+              <a
+                href="https://github.com/Senthilsk10/Smooth-Visualization-of-Delayed-Satellite-Imagery"
+                class="text-primary font-medium flex items-center hover:underline"
+              >
+                View Project
+                <svg
+                  class="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div
+            class="bg-white dark:bg-[#232b38] rounded-lg overflow-hidden shadow-md dark:shadow-lg hover:shadow-lg dark:shadow-xl transition-all duration-300 card-hover"
+          >
+            <div class="h-64 bg-gray-200 relative">
+              <img
+                src="dare-app.png"
+                alt="No-Code Chatbot for University Queries"
+                class="w-full h-full object-fit"
+              />
+              <div
+                class="absolute top-4 right-4 bg-primary dark:bg-primary text-white text-xs font-bold px-2 py-1 rounded"
+              >
+                Education
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-dark dark:text-white mb-2">
+                PhD Project Management System
+              </h3>
+              <p class="text-gray-700 dark:text-gray-200 mb-4">
+                comprehensive web application designed to manage the entire
+                lifecycle of PhD students from enrollment to graduation. It
+                includes features for student registration, progress tracking,
+                and thesis submission and evaluation of the research work.
+                Automates and streamlines mailing processes for notifications
+                and updates.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >Web App</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >Mail Automation</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >Management</span
+                >
+                <span
+                  class="bg-blue-100 text-primary px-3 py-1 rounded-full text-xs"
+                  >Educational Tech</span
+                >
+              </div>
+              <a
+                href="https://github.com/Senthilsk10/Dare-App"
+                class="text-primary font-medium flex items-center hover:underline"
+              >
+                View Project
+                <svg
+                  class="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 bg-light dark:bg-dark dark:bg-dark">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-dark dark:text-white">My Skills</h2>
+          <div class="w-24 h-1 bg-primary dark:bg-primary mx-auto mt-4 mb-8"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-xl font-bold text-dark dark:text-white mb-6">Technical Skills</h3>
+
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-700 dark:text-gray-200 font-medium">Django</span>
+                  <span class="text-primary font-medium">Advanced</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full">
+                  <div
+                    class="h-full bg-primary dark:bg-primary rounded-full"
+                    style="width: 95%"
+                  ></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-700 dark:text-gray-200 font-medium">MySQL & MongoDB</span>
+                  <span class="text-primary font-medium">Advanced</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full">
+                  <div
+                    class="h-full bg-primary dark:bg-primary rounded-full"
+                    style="width: 90%"
+                  ></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-700 dark:text-gray-200 font-medium">JavaScript</span>
+                  <span class="text-primary font-medium">Advanced</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full">
+                  <div
+                    class="h-full bg-primary dark:bg-primary rounded-full"
+                    style="width: 85%"
+                  ></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-700 dark:text-gray-200 font-medium">Python</span>
+                  <span class="text-primary font-medium">Advanced</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full">
+                  <div
+                    class="h-full bg-primary dark:bg-primary rounded-full"
+                    style="width: 90%"
+                  ></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-700 dark:text-gray-200 font-medium">React</span>
+                  <span class="text-primary font-medium">Intermediate</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full">
+                  <div
+                    class="h-full bg-primary dark:bg-primary rounded-full"
+                    style="width: 75%"
+                  ></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-700 dark:text-gray-200 font-medium"
+                    >Artificial Intelligence</span
+                  >
+                  <span class="text-primary font-medium">Intermediate</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full">
+                  <div
+                    class="h-full bg-primary dark:bg-primary rounded-full"
+                    style="width: 80%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold text-dark dark:text-white mb-6">
+              Tools & Technologies
+            </h3>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div class="bg-white dark:bg-[#232b38] p-4 rounded-lg shadow-sm text-center">
+                <div
+                  class="h-12 flex items-center justify-center text-primary text-2xl mb-2"
+                >
+                  <i class="fab fa-git-alt"></i>
+                </div>
+                <p class="text-gray-700 dark:text-gray-200 font-medium">Git</p>
+              </div>
+
+              <div class="bg-white dark:bg-[#232b38] p-4 rounded-lg shadow-sm text-center">
+                <div
+                  class="h-12 flex items-center justify-center text-primary text-2xl mb-2"
+                >
+                  <i class="fas fa-database"></i>
+                </div>
+                <p class="text-gray-700 dark:text-gray-200 font-medium">Redis</p>
+              </div>
+
+              <div class="bg-white dark:bg-[#232b38] p-4 rounded-lg shadow-sm text-center">
+                <div
+                  class="h-12 flex items-center justify-center text-primary text-2xl mb-2"
+                >
+                  <i class="fab fa-python"></i>
+                </div>
+                <p class="text-gray-700 dark:text-gray-200 font-medium">Jupyter</p>
+              </div>
+
+              <div class="bg-white dark:bg-[#232b38] p-4 rounded-lg shadow-sm text-center">
+                <div
+                  class="h-12 flex items-center justify-center text-primary text-2xl mb-2"
+                >
+                  <i class="fas fa-cloud"></i>
+                </div>
+                <p class="text-gray-700 dark:text-gray-200 font-medium">Vercel</p>
+              </div>
+
+              <div class="bg-white dark:bg-[#232b38] p-4 rounded-lg shadow-sm text-center">
+                <div
+                  class="h-12 flex items-center justify-center text-primary text-2xl mb-2"
+                >
+                  <i class="fab fa-js"></i>
+                </div>
+                <p class="text-gray-700 dark:text-gray-200 font-medium">GraphQL</p>
+              </div>
+
+              <div class="bg-white dark:bg-[#232b38] p-4 rounded-lg shadow-sm text-center">
+                <div
+                  class="h-12 flex items-center justify-center text-primary text-2xl mb-2"
+                >
+                  <i class="fas fa-laptop-code"></i>
+                </div>
+                <p class="text-gray-700 dark:text-gray-200 font-medium">Google Colab</p>
+              </div>
+            </div>
+            <br />
+            <h3 class="text-xl font-bold text-dark dark:text-white mt-8 mb-6">
+              Notable Achievement
+            </h3>
+            <div
+              class="bg-primary dark:bg-primary bg-opacity-10 border border-primary dark:border-blue-900 border-opacity-20 p-6 rounded-lg"
+            >
+              <div class="flex items-center mb-4">
+                <div
+                  class="h-12 w-12 flex-shrink-0 bg-primary dark:bg-primary bg-opacity-20 rounded-full flex items-center justify-center text-primary"
+                >
+                  <i class="fas fa-trophy text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-lg font-semibold text-dark dark:text-white">
+                    Smart India Hackathon 2024 Finalist
+                  </h4>
+                  <p class="text-primary">ISRO Challenge</p>
+                </div>
+              </div>
+              <p class="text-gray-700 dark:text-gray-200">
+                Developed an AI-based solution for satellite imagery
+                interpolation under ISRO scientists' guidance, addressing
+                real-time visualization challenges. Presented the project at the
+                national finale at Gujarat Technological University, showcasing
+                its impact on WebGIS applications like VEDAS and MOSDAC.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-50 dark:bg-[#181f2a] dark:bg-[#181f2a]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-dark dark:text-white dark:text-white">Get In Touch</h2>
+          <div class="w-24 h-1 bg-primary dark:bg-primary mx-auto mt-4 mb-8"></div>
+          <p class="text-gray-700 dark:text-gray-200 max-w-2xl mx-auto">
+            Have a project in mind or want to discuss potential opportunities?
+            Feel free to reach out!
+          </p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-12">
+          <div class="md:w-1/2">
+            <form
+              class="space-y-6"
+              action="https://api.web3forms.com/submit"
+              method="POST"
+            >
+              <input
+                type="hidden"
+                name="access_key"
+                value="37669faf-2dab-4a68-9647-df563aebd678"
+              />
+              <div>
+                <label for="name" class="block text-gray-700 dark:text-gray-200 font-medium mb-2"
+                  >Your Name</label
+                >
+                <input
+                  name="name"
+                  type="text"
+                  id="name"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="John Doe"
+                />
+              </div>
+
+              <div>
+                <label for="email" class="block text-gray-700 dark:text-gray-200 font-medium mb-2"
+                  >Email Address</label
+                >
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="john@example.com"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="subject"
+                  class="block text-gray-700 dark:text-gray-200 font-medium mb-2"
+                  >Subject</label
+                >
+                <input
+                  type="text"
+                  name="subject"
+                  id="subject"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="Project Inquiry"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="message"
+                  class="block text-gray-700 dark:text-gray-200 font-medium mb-2"
+                  >Message</label
+                >
+                <textarea
+                  name="message"
+                  id="message"
+                  rows="5"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="Your message here..."
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="gradient-bg dark:bg-gradient-to-r dark:from-blue-900 dark:to-blue-700 text-white px-8 py-3 rounded-md shadow-md dark:shadow-lg hover:shadow-lg dark:shadow-xl transition-all w-full"
+              >
+                Send Message
+              </button>
+              <input
+                type="hidden"
+                name="redirect"
+                value="htts://Senthilsk10.github.io/"
+              />
+            </form>
+          </div>
+
+          <div class="md:w-1/2">
+            <div class="bg-white dark:bg-[#232b38] p-8 rounded-lg shadow-md dark:shadow-lg h-full">
+              <h3 class="text-xl font-bold text-dark dark:text-white mb-6">
+                Contact Information
+              </h3>
+
+              <div class="space-y-6">
+                <div class="flex">
+                  <div
+                    class="flex-shrink-0 h-10 w-10 rounded-full bg-primary dark:bg-blue-900 bg-opacity-10 flex items-center justify-center text-primary dark:text-blue-300"
+                  >
+                    <i class="fas fa-map-marker-alt text-primary dark:text-blue-300"></i>
+                  </div>
+                  <div class="ml-4">
+                    <h4 class="text-lg font-medium text-dark dark:text-white">Location</h4>
+                    <p class="text-gray-700 dark:text-gray-200">Nagapattinam, Tamil Nadu, India</p>
+                  </div>
+                </div>
+
+                <div class="flex">
+                  <div
+                    class="flex-shrink-0 h-10 w-10 rounded-full bg-primary dark:bg-blue-900 bg-opacity-10 flex items-center justify-center text-primary dark:text-blue-300"
+                  >
+                    <i class="fas fa-envelope text-primary dark:text-blue-300"></i>
+                  </div>
+                  <div class="ml-4">
+                    <h4 class="text-lg font-medium text-dark dark:text-white">Email</h4>
+                    <a
+                      href="mailto:senthilkumaran1803@gmail.com"
+                      class="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300"
+                      >senthilkumaran1803@gmail.com</a
+                    >
+                  </div>
+                </div>
+
+                <div class="flex">
+                  <div
+                    class="flex-shrink-0 h-10 w-10 rounded-full bg-primary dark:bg-blue-900 bg-opacity-10 flex items-center justify-center text-primary dark:text-blue-300"
+                  >
+                    <i class="fas fa-phone text-primary dark:text-blue-300"></i>
+                  </div>
+                  <div class="ml-4">
+                    <h4 class="text-lg font-medium text-dark dark:text-white">Phone</h4>
+                    <a
+                      href="tel:+918428440849"
+                      class="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-blue-300"
+                      >+91 8428440849</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8">
+                <h4 class="text-lg font-medium text-dark dark:text-white mb-4">
+                  Connect With Me
+                </h4>
+                <div class="flex space-x-4">
+                  <a
+                    href="https://github.com/Senthilsk10"
+                    target="_blank"
+                    class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-primary dark:bg-primary transition-colors"
+                  >
+                    <i class="fab fa-github"></i>
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/senthil-kumaran-789355238"
+                    target="_blank"
+                    class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-primary dark:bg-primary transition-colors"
+                  >
+                    <i class="fab fa-linkedin-in"></i>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/senthilsk10/"
+                    target="_blank"
+                    class="h-10 w-10 rounded-full bg-pink-600 flex items-center justify-center text-white hover:bg-primary dark:bg-primary transition-colors"
+                  >
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-blue-700 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-6 md:mb-0">
+            <h2 class="text-2xl font-bold text-white dark:text-white">Senthil Kumaran</h2>
+            <p class="text-blue-100 dark:text-blue-300 mt-2">
+              Full Stack Developer & AI Enthusiast
+            </p>
+          </div>
+
+          <div class="text-center md:text-right">
+            <p class="text-blue-100 dark:text-blue-300">
+              &copy; 2025 Senthil Kumaran. All rights reserved.
+            </p>
+            <p class="text-blue-200 mt-1">Crafted with passion and code</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button
+      id="backToTop"
+      class="fixed bottom-6 right-6 h-12 w-12 rounded-full bg-primary dark:bg-primary text-white shadow-lg dark:shadow-xl flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-secondary dark:bg-blue-900"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 10l7-7m0 0l7 7m-7-7v18"
+        />
+      </svg>
+    </button>
+
+    <script>
+      // Back to top button functionality
+      const backToTopButton = document.getElementById("backToTop");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.remove("opacity-0", "invisible");
+          backToTopButton.classList.add("opacity-100", "visible");
+        } else {
+          backToTopButton.classList.remove("opacity-100", "visible");
+          backToTopButton.classList.add("opacity-0", "invisible");
+        }
+      });
+
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+      </script>
+  </body>
+</html>
