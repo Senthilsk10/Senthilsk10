@@ -1142,7 +1142,16 @@
         });
       });
       // clicking at the page load to go dark mode at first
-      document.querySelector("body > nav > div.max-w-7xl.mx-auto.px-4.sm\\:px-6.lg\\:px-8 > div > div.flex-shrink-0.flex.items-center > button").click();
+      document.addEventListener('DOMContentLoaded', function() {
+      console.log('loaded');
+      const btn = document.querySelector("body > nav > div.max-w-7xl.mx-auto.px-4.sm\\:px-6.lg\\:px-8 > div > div.flex-shrink-0.flex.items-center > button");
+      if(btn){
+        console.log('button is painted');
+        btn.click();
+      }else{
+        console.log('button not painted');
+      }
+      });
       </script>
   </body>
 </html>
