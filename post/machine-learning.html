@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educational Blog - Machine Learning Basics</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    .author {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 20px;
+    }
+    .tags {
+      margin-top: 15px;
+    }
+    .tag {
+      display: inline-block;
+      background: #3498db;
+      color: #fff;
+      padding: 3px 8px;
+      margin: 2px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+    p {
+      margin-bottom: 15px;
+    }
+  </style>
+
+    
+    
+        <style>
+            body { margin: 0; padding: 0; }
+            @media (max-width: 768px) {
+                .mobile-menu-btn { display: block !important; }
+                .nav-menu { display: none !important; }
+                footer > div > div { 
+                    grid-template-columns: 1fr !important; 
+                    text-align: center !important; 
+                }
+                footer div div { padding: 0 20px !important; }
+                header > div > div { flex-direction: column !important; gap: 15px !important; }
+            }
+            /* Ensure interactive elements work */
+            .plotly, .datatables, .html-widget { position: relative; z-index: 1; }
+        </style>
+    
+</head>
+<body>
+    
+        <header style="background: #2c3e50; color: white; padding: 15px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000;">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center;">
+                        <div style="font-size: 2rem; margin-right: 15px;">▲</div>
+                        <div>
+                            <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600;">Triangle STEM, LLC</h1>
+                            <p style="margin: 0; color: #bdc3c7; font-size: 0.9rem;">Empowering Tomorrow's Innovators</p>
+                        </div>
+                    </div>
+                    <nav>
+                        <button onclick="toggleMobileMenu()" style="display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;" class="mobile-menu-btn">☰</button>
+                        <ul style="display: flex; list-style: none; margin: 0; padding: 0; gap: 30px;" class="nav-menu">
+                            <li><a href="/" style="color: white; text-decoration: none; padding: 10px 0; transition: color 0.3s;" onmouseover="this.style.color='#f39c12'" onmouseout="this.style.color='white'">Home</a></li>
+                            <li><a href="/blogs.html" style="color: white; text-decoration: none; padding: 10px 0; transition: color 0.3s;" onmouseover="this.style.color='#f39c12'" onmouseout="this.style.color='white'">Blogs</a></li>
+                            <li><a href="/admin.html" style="color: white; text-decoration: none; padding: 10px 0; transition: color 0.3s;" onmouseover="this.style.color='#f39c12'" onmouseout="this.style.color='white'">Admin</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+    
+    
+    
+  <div class="container">
+    <h1>Understanding Machine Learning</h1>
+    <h2>Introduction</h2>
+    <p>
+      Machine learning is a branch of artificial intelligence that focuses on 
+      building systems that can learn from data. It is widely used in applications 
+      like speech recognition, recommendation systems, and self-driving cars.
+    </p>
+
+    <h2>Next to Introduction</h2>
+    <p>
+      After understanding the basics, it’s important to recognize the two main 
+      categories of machine learning: supervised and unsupervised learning. 
+      Supervised learning uses labeled datasets, while unsupervised learning 
+      identifies patterns without labels.
+    </p>
+
+    <h2>Applications in Education</h2>
+    <p>
+      In the education sector, machine learning is used for personalized learning, 
+      intelligent tutoring systems, and automated grading. These tools can enhance 
+      the student learning experience by adapting to individual needs.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      Machine learning continues to grow rapidly, offering new opportunities in 
+      various fields. For students, gaining a solid foundation in ML opens doors 
+      to research, innovation, and career development.
+    </p>
+
+    <div class="tags">
+      <span class="tag">AI</span>
+      <span class="tag">Education</span>
+      <span class="tag">Machine Learning</span>
+    </div>
+  </div>
+
+
+
+    
+    
+        <footer style="background: #2c3e50; color: white; padding: 40px 0 20px; margin-top: 80px;">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 30px;">
+                    <div>
+                        <h3 style="margin-bottom: 20px; color: #f39c12; font-size: 1.2rem;">Triangle STEM, LLC</h3>
+                        <p style="color: #bdc3c7; line-height: 1.8; margin: 10px 0;">Empowering high school students with comprehensive STEM education and communication skills for future success.</p>
+                        <p style="color: #bdc3c7; margin: 5px 0;"><span style="margin-right: 8px;">📍</span> Carey, NC</p>
+                        <p style="color: #bdc3c7; margin: 5px 0;"><span style="margin-right: 8px;">📞</span> (919) XXX-XXXX</p>
+                        <p style="color: #bdc3c7; margin: 5px 0;"><span style="margin-right: 8px;">✉️</span> info@trianglestem.com</p>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 20px; color: #f39c12; font-size: 1.2rem;">Quick Links</h3>
+                        <p style="margin: 8px 0;"><a href="/" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#bdc3c7'">Home</a></p>
+                        <p style="margin: 8px 0;"><a href="/blogs.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#bdc3c7'">STEM Blog</a></p>
+                        <p style="margin: 8px 0;"><a href="/admin.html" style="color: #bdc3c7; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#bdc3c7'">Admin</a></p>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 20px; color: #f39c12; font-size: 1.2rem;">Course Categories</h3>
+                        <p style="color: #bdc3c7; line-height: 1.8; margin: 8px 0;">Science Foundations</p>
+                        <p style="color: #bdc3c7; line-height: 1.8; margin: 8px 0;">Technology & Programming</p>
+                        <p style="color: #bdc3c7; line-height: 1.8; margin: 8px 0;">Engineering Principles</p>
+                        <p style="color: #bdc3c7; line-height: 1.8; margin: 8px 0;">Mathematics Excellence</p>
+                        <p style="color: #bdc3c7; line-height: 1.8; margin: 8px 0;">Communication Skills</p>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 20px; color: #f39c12; font-size: 1.2rem;">Connect With Us</h3>
+                        <p style="color: #bdc3c7; line-height: 1.8; margin-bottom: 15px;">Follow us for STEM education updates, tips, and student success stories.</p>
+                        <div>
+                            <a href="#" style="font-size: 1.5rem; margin-right: 15px; color: #bdc3c7; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#3498db'" onmouseout="this.style.color='#bdc3c7'">📘</a>
+                            <a href="#" style="font-size: 1.5rem; margin-right: 15px; color: #bdc3c7; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#1da1f2'" onmouseout="this.style.color='#bdc3c7'">🐦</a>
+                            <a href="#" style="font-size: 1.5rem; margin-right: 15px; color: #bdc3c7; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#0077b5'" onmouseout="this.style.color='#bdc3c7'">💼</a>
+                            <a href="#" style="font-size: 1.5rem; color: #bdc3c7; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#e4405f'" onmouseout="this.style.color='#bdc3c7'">📷</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; padding-top: 20px; border-top: 1px solid #34495e; color: #95a5a6;">
+                    <p style="margin: 0;">&copy; 2025 Triangle STEM, LLC. All rights reserved. | Empowering Tomorrow's Innovators</p>
+                </div>
+            </div>
+        </footer>
+    
+    
+    
+        <script>
+            function toggleMobileMenu() {
+                const menu = document.querySelector('.nav-menu');
+                const btn = document.querySelector('.mobile-menu-btn');
+                if (menu.style.display === 'flex') {
+                    menu.style.display = 'none';
+                    btn.textContent = '☰';
+                } else {
+                    menu.style.display = 'flex';
+                    menu.style.flexDirection = 'column';
+                    menu.style.position = 'absolute';
+                    menu.style.top = '100%';
+                    menu.style.left = '0';
+                    menu.style.right = '0';
+                    menu.style.background = '#34495e';
+                    menu.style.padding = '20px';
+                    menu.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                    btn.textContent = '✕';
+                }
+            }
+            
+            // Mobile responsive
+            function checkMobile() {
+                const menu = document.querySelector('.nav-menu');
+                const btn = document.querySelector('.mobile-menu-btn');
+                if (window.innerWidth <= 768) {
+                    btn.style.display = 'block';
+                    menu.style.display = 'none';
+                } else {
+                    btn.style.display = 'none';
+                    menu.style.display = 'flex';
+                    menu.style.flexDirection = 'row';
+                    menu.style.position = 'static';
+                    menu.style.background = 'transparent';
+                    menu.style.padding = '0';
+                    menu.style.boxShadow = 'none';
+                }
+            }
+            
+            window.addEventListener('resize', checkMobile);
+            window.addEventListener('load', checkMobile);
+        </script>
+    
+</body>
+</html>
