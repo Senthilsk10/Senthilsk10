@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Letter For Abarna</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+    body {
+      font-family: 'Crimson Text', serif;
+    }
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fade-in 0.6s ease-out; }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-rose-500 via-pink-600 to-purple-700 flex items-center justify-center p-4">
+  <div class="max-w-3xl w-full bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 animate-fade-in">
+    <!-- Envelope Icon -->
+    <div class="text-center mb-8">
+      <div class="inline-block text-6xl mb-4">💝</div>
+      <h1 class="text-4xl md:text-5xl font-bold text-rose-700 mb-2">To Abarna</h1>
+      <div class="h-1 w-32 bg-gradient-to-r from-rose-600 to-pink-600 mx-auto rounded-full"></div>
+    </div>
+
+    <!-- Letter Content (will be injected here) -->
+    <div id="letter" class="prose prose-lg max-w-none text-gray-800 space-y-6"></div>
+
+    <!-- Decorative Element -->
+    <div class="mt-8 flex justify-center">
+      <div class="flex space-x-2">
+        <div class="w-2 h-2 bg-rose-400 rounded-full animate-pulse"></div>
+        <div class="w-2 h-2 bg-pink-500 rounded-full animate-pulse delay-100"></div>
+        <div class="w-2 h-2 bg-rose-600 rounded-full animate-pulse delay-200"></div>
+      </div>
+    </div>
+  </div>
+
+ <script>
+  // Base64-encoded letter content (smile emoji removed)
+  const encodedContent = `
+PHA+SGV5IEFiYXJuYSw8L3A+Cg
+o8cD5JIGtlZXAgd29uZGVyaW5nIGZvciBhIGRheSBvciB0d28gLSBpZiBJIHdhcyB0aGlzIHBlcnNvbiB3aG8gb3ZlcnNoYXJlcyBldmVyeXRoaW5nLCB3aG8gZHVtcHMgYWxsIGhpcyBmYW1pbHkgcHJvYmxlbXMgYW5kIGVuZGxlc3MgcXVlc3Rpb25zIG9uIHlvdS4uLiBmcm9tIHRoZSBzdGFydGluZywgIHdvdWxkIHlvdSBzdGlsbCBoYXZlIHdhbnRlZCBtZSBzaXR0aW5nIG5leHQgdG8geW91IGJlY2F1c2Ugb2YgbXkgcm9sbCBudW1iZXI/IFdvdWxkIHlvdSBzdGlsbCBzYXkg
+eW91J3JlIGx1Y2t5IHRvIGhhdmUgbWUgYXJvdW5kPzwvcD4KCjxwPkkgdGhpbmsgYWJvdXQgdGhpcyBiZWNhdXNlIHRoZXNlIHBhc3QgbW9udGhzIHdpdGggeW91IGhhdmUgYmVlbiBzb21ldGhpbmcgZGlmZmVyZW50IGZvciBtZS4gWW91IGp1c3QuLi4gbGlzdGVuLiBXaGVuIEkgdGFsayBhYm91dCBteSBmYW1pbHksIHdoZW4gSSdtIHdvcmtpbmcgdGhyb3VnaCBzb21ldGhpbmcgbWVzc3kgaW4gbXkgaGVhZCwgd2hlbiBJJ20gcHJvYmFibHkgc2F5aW5nIHdheSB0b28gbXVjaCAtIHlvdSdyZSBqdXN0IHRoZXJlLiBZb3UgYmFjayBtZS48L3A+Cgo8cD5BbmQgSSBEb24ndCBzaGFyZSBhbnl0aGluZyBoYXBwZW5pbmcgd2l0aCBteSBsaWZlIGJlY2F1c2UgSSBvdmVydGhpbmsgYWJvdXQgaG93IHRoZXkgaHRpbmsgYWJvdXQgbWUuIExvb2tpbmcgYmFjaywgdGhhdCBmZWVscyBzbyBzdHVwaWQgbm93LCBCZWNhdXNlIGV2ZXJ5IHRpbWUgd2UgZG8gdGFsaywgSSBnZXQgdG8ga25vdyB0aGF0IHNvbWV0aW1lcyBsZXR0aW5nIGl0IG91dCBhY3R1YWxseSBnb29kIGZvciBtZSwgYW5kIHBlb3BsZSBmb3JnZXQgaXQgdG9vICh5b3Ugc2FpZCBpdCB5b3Vyc2VsZikuPC9wPgoKPHA+WW91IGFsc28gZ2F2ZSBtZSBIYXJpbmkgLSBub3QganVzdCBhbiBpbnRyb2R1Y3Rpb24sIGJ1dCBhIGNvbm5lY3Rpb24uIFRoYXQgc3VycHJpc2Ugd2UgcGxhbm5lZCB0b2dldGhlciBvbiB5b3VyIGJpcnRoZGF5LCB5b3UncmUgcXVpZXRseSBidWlsZGluZyBiZWF1dGlmdWwgdGhpbmdzIGluIG15IGxpZmUsIGFuZCBJIGRvbid0IHRoaW5rIEkndmUgdG9sZCB5b3UgZW5vdWdoIGhvdyBtdWNoIHRoYXQgbWVhbnMuPC9wPgoKPHA+U28gaGVyZSdzIG15IHF1ZXN0aW9uIGFnYWluLCBidXQgcmVhbGx5IGFza2luZyBpdCB0aGlzIHRpbWU6IElmIEkgd2FzIG5vdCB0aGUgcHJvamVjdCBndXkgd2l0aCBub3RoaW5nIGVsc2Ug
+dG8gb2ZmZXIgLSB3b3VsZCB3ZSBoYXZlIHRoaXM/I
+FdvdWxkIEkg
+aGF2ZSBncm93biB0aGlzIGJlYXV0aWZ1bCBjb25uZWN0aW9uIHdpdGggeW91IHRocm91Z2ggYWxsIG91ciB0YWxrcz88L3A+Cgo8cD5JIGRvbid0IHRoaW5rIHNvLiBBbmQgdGhhdCBtYWtlcyBtZSBkZWVwbHkgZ3JhdGVmdWwgZm9yIHdob2V2ZXIgSSd2ZSBiZWNvbWUg
+bm93IC0gZXZlbiBpZiB0aGUgcGFydCBvZiBtZSB0aGF0IGRvZXNuJ3Qgc2VlbSB0byBjYXJlIGJlY2F1c2Ugc29tZWhvdywgdGhhdCB2ZXJzaW9uIG9mIG1lIG1hZGUgeW91IHdhbnQgdG8gc3RheS4KClAnbSB
+oZXJlLCBzYXlpbmcgdGhpc
+yBiZWNhdXNlIEkgcHVzaGVkIG15c2VsZiBzbyBoYXJkIHRvIGJlY29tZSB3aG8gSSBhbSB0b2RheSBmb3IgdGhlIG9uZSB3aG8gcmFpc2VkIG1lLiBJIHRyaWVkIHNvIG11Y2ggdG8gcmVhY2ggdGhpcyBwbGFjZSwgYnV0IHRoZXkgc3RpbGwgc2FuJ3Qgc2VlbSB0byB1bmRlcnN0YW5kIG1lLiBBdCBsZWFzdCB5b3Ugc3RheWVkLjwvcD4KCjxwPlRoYW5rIHlvdSBmb3IgYmVpbmcgbXkgcGVyc29uLCBmb3IgbGlzdGVuaW5nIHRvIGFsbCBvZiBpdCwgZm9yIG1ha2luZyBzcGFjZSBmb3IgdGhlIG1lc3N5LCBPdmVydGhpbmtpbmcsIEFubm95aW5nIHZlcnNpb24gb2YgbWUuPC9wPgoKPGRpdiBjbGFzcz0ibXQtMTIgdGV4dC1yaWdodCBpdGFsaWMgdGV4dC1ncmF5LTYwMCI+CiA8cD5BbHdheXMsPC9wPgo8cD5TZW50aGlsIEt1bWFyYW48L3A+CjwvZGl2Pg==
+`;
+
+  // Decode & inject
+  document.getElementById('letter').innerHTML = atob(encodedContent);
+</script>
+
+</body>
+</html>
