@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letter for the person i like</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+        body {
+            font-family: 'Crimson Text', serif;
+        }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fade-in 0.6s ease-out; }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-600 flex items-center justify-center p-4">
+    <div class="max-w-3xl w-full bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 animate-fade-in">
+        <div class="text-center mb-8">
+            <div class="inline-block text-6xl mb-4">💜</div>
+            <h1 id="to" class="text-4xl md:text-5xl font-bold text-indigo-700 mb-2"></h1>
+            <div class="h-1 w-32 bg-gradient-to-r from-indigo-600 to-purple-600 mx-auto rounded-full"></div>
+        </div>
+
+        <div id="letterContent" class="prose prose-lg max-w-none text-gray-800 space-y-6"></div>
+
+        <div class="mt-8 flex justify-center">
+            <div class="flex space-x-2">
+                <div class="w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></div>
+                <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-100"></div>
+                <div class="w-2 h-2 bg-pink-600 rounded-full animate-pulse delay-200"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base64-encoded version of the letter
+        const encodedLetter = `PGgxIGNsYXNzPSJ0ZXh0LXhsIG10LTQgIj5IaSBIYXJpbmksPC9oMT4KPHA+SSBoYXZlIHRoaXMgdGhvdWdodCBJIGNhbid0IGdldCBvdmVyIHdpdGgsIGFuZCBJIHdhbnQgdG8gc2hhcmUgaXQgd2l0aCB5b3UgYmVjYXVzZSwgd2VsbCwgeW91J3JlIG9uZSBvZiB0aGUgZmV3IHBlb3BsZSB3aG9zZSB0aG91Z2h0cyBJIGFjdHVhbGx5IHdhbnQgdG8gaGVhciBvbiB0aGlzOiBXaGF0IGlmIEkgd2Fzbid0ICB0aGF0IHByb2plY3QgZ3V5PzwvcD4KPHA+V291bGQgeW91IGhhdmUgdGFsa2VkIHRvIG1lIGF0IHRoZSBsaWJyYXJ5IHRoYXQgZGF5IHdoaWNoIGVuZHMgdXAgb24gYSAyIGhvdXIgcGhvbmUgY2FsbD8gV291bGQgSSBoYXZlIGdvdHRlbiB0byBrbm93IHlvdSAod2hpY2gsIGJ5IHRoZSB3YXksIGZlZWxzIGxpa2UgZmluZGluZyBzb21lb25lIHdobyBzcGVha3MgYSBsYW5ndWFnZSBJIHRob3VnaHQgSSB3YXMgU3BlYWtpbmcgYWxvbmUpPzwvcD4KPHA+SSBrZWVwIHJlcGxheWluZyBvdXIgY29udmVyc2F0aW9ucy4gVGhlIHdheSB5b3UgdGFrZSBldmVyeSBzdGVwIGNhcmVmdWxseS4gVGhlIHdheSB5b3UncmUgY2xlYXIgYWJvdXQgd2hvJ3MgbmVlZGVkIGluIHlvdXIgbGlmZSBhbmQgd2hvJ3Mgbm90LCB3aGF0J3MgZ29vZCBmb3IgeW91IGFuZCB3aGF0IGlzbid0LiBUaGF0IGNsYXJpdHkgaXMgc29tZXRoaW5nIEkgcmFyZWx5IHNlZS4gSW4gYSB3b3JsZCB3aGVyZSBldmVyeW9uZSdzIGp1c3QgZmxvYXRpbmcgdGhyb3VnaCBkZWNpc2lvbnMsIHlvdSdyZSBpbnRlbnRpb25hbC4gWW91J3JlIHRob3VnaHRmdWwuIFlvdSdyZSA8ZW0+YXdha2U8L2VtPi48L3A+CjxwPkFuZCBJJ20gZHJhd24gdG8gdGhhdCAtIHRvIHRoZSB3YXkgeW91IHRoaW5rLCB0byB5b3VyIHRob3VnaHQgcHJvY2Vzcy4gSSBmaW5kIG15c2VsZiB3YW50aW5nIHRvIGhlYXIgbW9yZSBvZiBpdCwgdG8gdW5kZXJzdGFuZCBob3cgeW91IGFycml2ZWQgYXQgdGhpcyBjbGFyaXR5LiBUaGVyZSdzIHNvbWV0aGluZyBmYXNjaW5hdGluZyBhYm91dCB0aGUgd2F5IHlvdXIgbWluZCB3b3JrcywgYW5kIGhvbmVzdGx5LCBJJ20gc3RpbGwgZ2V0dGluZyB0byBrbm93IGl0LiBJIHdhbnQgdG8ga2VlcCBoYXZpbmcgdGhlc2UgY29udmVyc2F0aW9ucywgS2VlcCBkaXNjb3ZlcmluZyBob3cgeW91IHNlZSB0aGluZ3MuPC9wPgo8cD5UaGVzZSBwYXN0IHR3byB3ZWVrcyBoYXZlIGJlZW4gaGFyZC4gSSdtIGdvaW5nIHRocm91Z2ggdGhpbmdzIHRoYXQgbWFrZSBzb21lIGRheXMgZmVlbCBpbXBvc3NpYmxlLiBCdXQgdGFsa2luZyB0byB5b3U/IFNoYXJpbmcgdGhvdWdodHMgd2l0aCB5b3U/IFRoYXQncyBiZWVuIGEgbGlnaHQuIFlvdSd2ZSBtYWRlIHRoaW5ncyB3YXJtZXIsIGxpZ2h0ZXIsIG1vcmUgbWVhbmluZ2Z1bCwgZXZlbiBpbiB0aGUgbWlkZGxlIG9mIG15IHN0cnVnZ2xlcy48L3A+CjxwPlNvIG15IHF1ZXN0aW9uIHRvIHlvdSBpczogSWYgSSB3YXNuJ3QgdGhpcyB2ZXJzaW9uIG9mIG1lIC0gc29tZW9uZSB3aG8ncyBub3Qgd2VsbCBlbm91Z2ggaW4gY29kaW5nIGFuZCBzdHVmZnMgLSB3b3VsZCB5b3UgaGF2ZSBsZXQgbWUgaW4/IFdvdWxkIHdlIGhhdmUgdGhpcyBjb25uZWN0aW9uIHRoYXQgSSBob2xkIHNvIGNhcmVmdWxseT88L3A+CjxwPkkgZG9uJ3QgdGhpbmsgeW91IHdvdWxkLjwvcD4KPHA+VGhhbmsgeW91IGZvciBsZXR0aW5nIG1lIGJlIHBhcnQgb2YgeW91ciBjYXJlZnVsbHkgY2hvc2VuIGNpcmNsZS48L3A+CjxkaXYgY2xhc3M9Im10LTEyIHRleHQtcmlnaHQgaXRhbGljIHRleHQtZ3JheS02MDAiPgo8cD5XaXRoIHdhcm10aCBhbmQgc29tZXRoaW5nIGRlZXBlciBJJ20gc3RpbGwgZmlndXJpbmcgb3V0IGhvdyB0byBuYW1lLCA8L3A+CjxwIGNsYXNzPSJtdC0yIj5TZW50aGlsIEt1bWFyYW48L3A+CjwvZGl2Pg==`;
+
+        // Decode and display
+        document.getElementById("letterContent").innerHTML = atob(encodedLetter);
+      document.getElementById("to").innerHTML = atob("VG8gSGFyaW5p");
+    </script>
+</body>
+</html>
