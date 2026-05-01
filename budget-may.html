@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Report · Senthilkumaran Sundar · May 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --bg: #0f0e0c;
+  --surface: #1a1916;
+  --surface2: #222019;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0ede6;
+  --muted: #7a7770;
+  --accent: #d4a847;
+  --accent2: #8bc48a;
+  --danger: #e06060;
+  --info: #6899d4;
+  --purple: #a48fd4;
+  --teal: #5dbfa0;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── noise overlay ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: 0.4;
+}
+
+/* ── layout ── */
+.wrapper { max-width: 980px; margin: 0 auto; padding: 0 24px 80px; position: relative; z-index: 1; }
+
+/* ── header ── */
+header {
+  padding: 60px 0 48px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.header-left h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text);
+}
+.header-left h1 span { color: var(--accent); }
+.header-left p { font-size: 13px; color: var(--muted); margin-top: 8px; font-family: var(--font-mono); }
+.badge {
+  background: rgba(212,168,71,0.12);
+  border: 1px solid rgba(212,168,71,0.3);
+  color: var(--accent);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ── nav tabs ── */
+nav {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 40px;
+  background: var(--surface);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+nav button {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+nav button.active {
+  background: var(--surface2);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+nav button:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.04); }
+
+/* ── sections ── */
+.tab-section { display: none; animation: fadeUp 0.3s ease; }
+.tab-section.active { display: block; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── metric cards ── */
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 40px; }
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.metric-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.metric-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  border-radius: 14px 14px 0 0;
+}
+.metric-card.green::after { background: var(--accent2); }
+.metric-card.amber::after { background: var(--accent); }
+.metric-card.red::after { background: var(--danger); }
+.metric-card.gray::after { background: var(--muted); }
+.metric-card .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--font-mono); margin-bottom: 8px; }
+.metric-card .value { font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+.metric-card .value.green { color: var(--accent2); }
+.metric-card .value.amber { color: var(--accent); }
+.metric-card .value.red { color: var(--danger); }
+.metric-card .sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+/* ── section heading ── */
+.sec-heading {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sec-heading::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── balance bar ── */
+.balance-bar-wrap { margin-bottom: 40px; }
+.balance-bar {
+  height: 22px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 14px;
+}
+.bar-seg { transition: opacity 0.2s; cursor: pointer; }
+.bar-seg:hover { opacity: 0.8; }
+.bar-legend { display: flex; flex-wrap: wrap; gap: 14px; }
+.bar-legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); cursor: pointer; }
+.bar-legend-item .dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.bar-legend-item strong { color: var(--text); font-family: var(--font-mono); font-size: 12px; }
+
+/* ── tables ── */
+.table-wrap { overflow-x: auto; margin-bottom: 32px; border-radius: 12px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th {
+  background: var(--surface2);
+  padding: 12px 16px;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: rgba(255,255,255,0.03); }
+tbody td { padding: 11px 16px; color: var(--text); }
+tbody td.mono { font-family: var(--font-mono); font-size: 12px; }
+tbody td.amt-credit { font-family: var(--font-mono); font-weight: 500; color: var(--accent2); }
+tbody td.amt-debit { font-family: var(--font-mono); font-weight: 500; color: var(--danger); }
+tbody td.amt-neutral { font-family: var(--font-mono); font-weight: 500; color: var(--accent); }
+
+/* ── pills ── */
+.pill {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+.pill-income { background: rgba(139,196,138,0.15); color: var(--accent2); }
+.pill-borrow { background: rgba(212,168,71,0.12); color: var(--accent); }
+.pill-expense { background: rgba(224,96,96,0.12); color: var(--danger); }
+.pill-neutral { background: rgba(104,153,212,0.12); color: var(--info); }
+.pill-pass { background: rgba(164,143,212,0.12); color: var(--purple); }
+
+/* ── chart containers ── */
+.charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+@media (max-width: 640px) { .charts-grid { grid-template-columns: 1fr; } }
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+}
+.chart-card h3 { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.chart-card .chart-sub { font-size: 11px; color: var(--muted); font-family: var(--font-mono); margin-bottom: 20px; }
+.chart-canvas-wrap { position: relative; height: 240px; }
+.chart-legend { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+.chart-legend-row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; }
+.chart-legend-label { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+.chart-legend-label .dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+.chart-legend-value { font-family: var(--font-mono); font-size: 11px; color: var(--text); }
+.chart-legend-pct { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-left: 6px; }
+
+/* ── budget planner ── */
+.budget-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+}
+.budget-row:last-child { border-bottom: none; }
+.budget-row .b-label { font-size: 14px; display: flex; align-items: center; gap: 10px; }
+.budget-row .b-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.budget-row .b-amt { font-family: var(--font-mono); font-size: 14px; font-weight: 500; }
+.budget-divider { height: 1px; background: var(--border2); margin: 8px 0; }
+.budget-total {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 0 4px;
+  font-family: var(--font-display); font-weight: 700; font-size: 16px;
+}
+.bar-mini-wrap { margin: 6px 0 14px; background: rgba(255,255,255,0.06); border-radius: 4px; height: 5px; overflow: hidden; }
+.bar-mini-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+
+/* ── info box ── */
+.info-box {
+  background: rgba(104,153,212,0.08);
+  border: 1px solid rgba(104,153,212,0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #a8c4e8;
+  margin-top: 16px;
+  line-height: 1.6;
+}
+
+/* ── savings card ── */
+.savings-hero {
+  background: linear-gradient(135deg, rgba(139,196,138,0.1), rgba(93,191,160,0.06));
+  border: 1px solid rgba(139,196,138,0.2);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.savings-hero .sh-label { font-size: 12px; color: var(--muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.savings-hero .sh-value { font-family: var(--font-display); font-size: 48px; font-weight: 800; color: var(--accent2); letter-spacing: -0.04em; }
+.savings-hero .sh-sub { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* ── tooltip ── */
+.tooltip-note { font-size: 11px; color: var(--muted); padding: 10px 0 0; font-style: italic; }
+
+/* ── footer ── */
+footer {
+  text-align: center;
+  padding: 40px 0 20px;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+/* ── animations ── */
+.fade-in { animation: fadeUp 0.5s ease both; }
+.fade-in:nth-child(2) { animation-delay: 0.05s; }
+.fade-in:nth-child(3) { animation-delay: 0.1s; }
+.fade-in:nth-child(4) { animation-delay: 0.15s; }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <header>
+    <div class="header-left">
+      <h1>Financial <span>Report</span></h1>
+      <p>Senthilkumaran Sundar · A/C 7362478940 · Indian Bank, Nagapattinam</p>
+    </div>
+    <span class="badge">Apr – May 2026</span>
+  </header>
+
+  <nav>
+    <button class="active" onclick="showTab('overview')">Overview</button>
+    <button onclick="showTab('cashflow')">Cashflow</button>
+    <button onclick="showTab('budget')">May Budget</button>
+    <button onclick="showTab('charts')">Charts</button>
+  </nav>
+
+  <!-- ════════════════════ OVERVIEW ════════════════════ -->
+  <section class="tab-section active" id="tab-overview">
+
+    <div class="metrics">
+      <div class="metric-card amber fade-in">
+        <div class="label">total balance</div>
+        <div class="value amber">₹98,155</div>
+        <div class="sub">Statement ending 01 May 2026</div>
+      </div>
+      <div class="metric-card gray fade-in">
+        <div class="label">locked (insurance)</div>
+        <div class="value" style="color:var(--muted)">₹20,000</div>
+        <div class="sub">Cannot be used</div>
+      </div>
+      <div class="metric-card red fade-in">
+        <div class="label">you owe others</div>
+        <div class="value red">₹47,332</div>
+        <div class="sub">Parents ₹42,332 · Jothi ₹5,000</div>
+      </div>
+      <div class="metric-card green fade-in">
+        <div class="label">truly yours</div>
+        <div class="value green">₹30,823</div>
+        <div class="sub">Free to use / budget</div>
+      </div>
+    </div>
+
+    <div class="sec-heading">Balance Breakdown</div>
+    <div class="balance-bar-wrap">
+      <div class="balance-bar">
+        <div class="bar-seg" style="width:20.4%;background:#5f5e5a" title="Insurance ₹20,000"></div>
+        <div class="bar-seg" style="width:43.1%;background:#e24b4a" title="Owe parents ₹42,332"></div>
+        <div class="bar-seg" style="width:5.1%;background:#ef9f27" title="Owe Jothi ₹5,000"></div>
+        <div class="bar-seg" style="width:31.4%;background:#639922" title="Yours ₹30,823"></div>
+      </div>
+      <div class="bar-legend">
+        <div class="bar-legend-item"><span class="dot" style="background:#5f5e5a"></span>Insurance lock <strong>₹20,000</strong> <span style="font-size:11px;color:var(--muted)">(20.4%)</span></div>
+        <div class="bar-legend-item"><span class="dot" style="background:#e24b4a"></span>Owe parents <strong>₹42,332</strong> <span style="font-size:11px;color:var(--muted)">(43.1%)</span></div>
+        <div class="bar-legend-item"><span class="dot" style="background:#ef9f27"></span>Owe Jothi <strong>₹5,000</strong> <span style="font-size:11px;color:var(--muted)">(5.1%)</span></div>
+        <div class="bar-legend-item"><span class="dot" style="background:#639922"></span>Yours <strong>₹30,823</strong> <span style="font-size:11px;color:var(--muted)">(31.4%)</span></div>
+      </div>
+    </div>
+
+    <div class="sec-heading">Liability Detail</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Who</th><th>Amount</th><th>Why</th><th>Priority</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Jothilakshmi</strong></td>
+            <td class="amt-debit">₹5,000</td>
+            <td style="color:var(--muted);font-size:12px">Borrowed for Sundar loan cycle, not yet returned</td>
+            <td><span class="pill pill-expense">High</span></td>
+          </tr>
+          <tr>
+            <td><strong>Parents</strong></td>
+            <td class="amt-debit">₹42,332</td>
+            <td style="color:var(--muted);font-size:12px">₹2,82,000 in − ₹2,38,814 cash − ₹354 transfer − ₹500 CUB</td>
+            <td><span class="pill pill-neutral">Ongoing</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box">
+      <strong style="color:var(--info)">Key rule:</strong> When you pay Jothi ₹5,000, your account drops by ₹5,000 but your own <strong style="color:var(--text)">₹30,823 stays untouched</strong> — the money comes out of Jothi's separate liability bucket, not yours.
+    </div>
+
+    <div class="sec-heading" style="margin-top:32px">How your ₹30,823 was built</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Item</th><th>Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Opening savings (21 Apr)</td><td class="amt-neutral">₹8,376</td></tr>
+          <tr><td>April salary (Connekt C)</td><td class="amt-credit">+₹26,000</td></tr>
+          <tr><td>House expense (to Sundar)</td><td class="amt-debit">−₹1,000</td></tr>
+          <tr><td>Exam fees (Eazypay)</td><td class="amt-debit">−₹1,590</td></tr>
+          <tr><td>Petty daily spends</td><td class="amt-debit">−₹963</td></tr>
+          <tr style="background:rgba(139,196,138,0.05)"><td><strong>Net — truly yours</strong></td><td class="amt-credit"><strong>₹30,823</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+
+  <!-- ════════════════════ CASHFLOW ════════════════════ -->
+  <section class="tab-section" id="tab-cashflow">
+    <div class="sec-heading">All Transactions — 21 Apr to 1 May</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px" id="filter-pills">
+      <button class="pill pill-income" style="cursor:pointer;padding:5px 12px;font-size:11px;border:none" onclick="filterTable('all')">All</button>
+      <button class="pill pill-income" style="cursor:pointer;padding:5px 12px;font-size:11px;border:none" onclick="filterTable('income')">Income</button>
+      <button class="pill pill-expense" style="cursor:pointer;padding:5px 12px;font-size:11px;border:none" onclick="filterTable('expense')">Expense</button>
+      <button class="pill pill-borrow" style="cursor:pointer;padding:5px 12px;font-size:11px;border:none" onclick="filterTable('borrow')">Borrow/Repay</button>
+      <button class="pill pill-pass" style="cursor:pointer;padding:5px 12px;font-size:11px;border:none" onclick="filterTable('pass')">Pass-through</button>
+    </div>
+    <div class="table-wrap">
+      <table id="cashflow-table">
+        <thead><tr><th>Date</th><th>Description</th><th>Category</th><th>In</th><th>Out</th></tr></thead>
+        <tbody>
+          <tr data-cat="income"><td class="mono">21 Apr</td><td>April salary — Connekt C</td><td><span class="pill pill-income">Income</span></td><td class="amt-credit">₹26,000</td><td>—</td></tr>
+          <tr data-cat="borrow"><td class="mono">21 Apr</td><td>From Jothilakshmi</td><td><span class="pill pill-borrow">Borrowed</span></td><td class="amt-neutral">₹5,000</td><td>—</td></tr>
+          <tr data-cat="borrow"><td class="mono">21 Apr</td><td>From Krishnaveni</td><td><span class="pill pill-borrow">Borrowed</span></td><td class="amt-neutral">₹5,000</td><td>—</td></tr>
+          <tr data-cat="borrow"><td class="mono">21 Apr</td><td>Sent to Sundar (lent 15k)</td><td><span class="pill pill-neutral">Loan given</span></td><td>—</td><td class="amt-debit">₹15,000</td></tr>
+          <tr data-cat="borrow"><td class="mono">24 Apr</td><td>Sundar returned</td><td><span class="pill pill-neutral">Recovered</span></td><td class="amt-neutral">₹15,000</td><td>—</td></tr>
+          <tr data-cat="borrow"><td class="mono">25 Apr</td><td>Returned to Krishnaveni</td><td><span class="pill pill-borrow">Repaid</span></td><td>—</td><td class="amt-debit">₹5,000</td></tr>
+          <tr data-cat="expense"><td class="mono">26 Apr</td><td>Eazypay — Exam fees</td><td><span class="pill pill-expense">Exam fees</span></td><td>—</td><td class="amt-debit">₹1,590</td></tr>
+          <tr data-cat="expense"><td class="mono">27 Apr</td><td>Sundar — House expense</td><td><span class="pill pill-expense">House</span></td><td>—</td><td class="amt-debit">₹1,000</td></tr>
+          <tr data-cat="pass"><td class="mono">28 Apr</td><td>Parents transfer in</td><td><span class="pill pill-pass">Pass-through</span></td><td class="amt-neutral">₹2,82,000</td><td>—</td></tr>
+          <tr data-cat="pass"><td class="mono">28 Apr</td><td>Cash WDL + transfer + CUB fee</td><td><span class="pill pill-pass">Pass-through</span></td><td>—</td><td class="amt-debit">₹2,39,668</td></tr>
+          <tr data-cat="expense"><td class="mono">Various</td><td>Petty daily spends</td><td><span class="pill pill-expense">Personal</span></td><td>—</td><td class="amt-debit">₹963</td></tr>
+          <tr data-cat="expense"><td class="mono">Various</td><td>Cafes, transport, misc</td><td><span class="pill pill-expense">Petty</span></td><td>—</td><td class="amt-debit" style="color:var(--muted)">included above</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sec-heading">Petty Spends Breakdown</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Where</th><th>Amount</th></tr></thead>
+        <tbody>
+          <tr><td>New Moorthy Cafe</td><td class="mono">₹210</td></tr>
+          <tr><td>R Dharumarajan (multiple)</td><td class="mono">₹200</td></tr>
+          <tr><td>Anusuya S</td><td class="mono">₹200</td></tr>
+          <tr><td>Malathi T (multiple)</td><td class="mono">₹106</td></tr>
+          <tr><td>Indian Railways</td><td class="mono">₹55</td></tr>
+          <tr><td>Archana Cooldrinks</td><td class="mono">₹80</td></tr>
+          <tr><td>Others (Shahul, Gopinath, Bakyaraja, Ismail, Raja, Lakshmanan, Sumathra, Balasankar)</td><td class="mono">₹112</td></tr>
+          <tr style="background:rgba(224,96,96,0.06)"><td><strong>Total</strong></td><td class="amt-debit"><strong>₹963</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════════════════════ MAY BUDGET ════════════════════ -->
+  <section class="tab-section" id="tab-budget">
+
+    <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+      <div class="metric-card amber">
+        <div class="label">your opening</div>
+        <div class="value amber">₹30,823</div>
+        <div class="sub">Carried from April</div>
+      </div>
+      <div class="metric-card green">
+        <div class="label">+ freelance income</div>
+        <div class="value green">₹10,000</div>
+        <div class="sub">Expected</div>
+      </div>
+      <div class="metric-card green">
+        <div class="label">total available</div>
+        <div class="value green">₹40,823</div>
+        <div class="sub">To budget this month</div>
+      </div>
+    </div>
+
+    <div class="sec-heading">May Expenses</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:32px">
+
+      <div class="budget-row">
+        <div>
+          <div class="b-label">🏦 Repco loan</div>
+          <div class="b-note">Fixed monthly obligation</div>
+          <div class="bar-mini-wrap" style="width:200px"><div class="bar-mini-fill" style="width:29.4%;background:#e24b4a"></div></div>
+        </div>
+        <div class="b-amt" style="color:var(--danger)">₹12,000</div>
+      </div>
+
+      <div class="budget-row">
+        <div>
+          <div class="b-label">🏠 House rent</div>
+          <div class="b-note">Fixed monthly</div>
+          <div class="bar-mini-wrap" style="width:200px"><div class="bar-mini-fill" style="width:17.1%;background:#378add"></div></div>
+        </div>
+        <div class="b-amt" style="color:var(--info)">₹7,000</div>
+      </div>
+
+      <div class="budget-row">
+        <div>
+          <div class="b-label">🛒 Grocery</div>
+          <div class="b-note">Fixed monthly</div>
+          <div class="bar-mini-wrap" style="width:200px"><div class="bar-mini-fill" style="width:17.1%;background:#1d9e75"></div></div>
+        </div>
+        <div class="b-amt" style="color:var(--teal)">₹7,000</div>
+      </div>
+
+      <div class="budget-row">
+        <div>
+          <div class="b-label">🚆 Chennai trip</div>
+          <div class="b-note">This Sunday · ₹2,000 base + ₹500 enjoyment buffer</div>
+          <div class="bar-mini-wrap" style="width:200px"><div class="bar-mini-fill" style="width:6.1%;background:#7f77dd"></div></div>
+        </div>
+        <div class="b-amt" style="color:var(--purple)">₹2,500</div>
+      </div>
+
+      <div class="budget-row">
+        <div>
+          <div class="b-label">🏡 Home extra</div>
+          <div class="b-note">Mid-month home expenses</div>
+          <div class="bar-mini-wrap" style="width:200px"><div class="bar-mini-fill" style="width:4.9%;background:#d4537e"></div></div>
+        </div>
+        <div class="b-amt" style="color:#d4537e">₹2,000</div>
+      </div>
+
+      <div class="budget-row">
+        <div>
+          <div class="b-label">📚 College works</div>
+          <div class="b-note">College-related costs</div>
+          <div class="bar-mini-wrap" style="width:200px"><div class="bar-mini-fill" style="width:2.4%;background:#ef9f27"></div></div>
+        </div>
+        <div class="b-amt" style="color:var(--accent)">₹1,000</div>
+      </div>
+
+      <div class="budget-row">
+        <div>
+          <div class="b-label">💈 Grooming & petty</div>
+          <div class="b-note">Personal care + daily spends</div>
+          <div class="bar-mini-wrap" style="width:200px"><div class="bar-mini-fill" style="width:4.9%;background:#5dbfa0"></div></div>
+        </div>
+        <div class="b-amt" style="color:var(--teal)">₹2,000</div>
+      </div>
+
+      <div class="budget-divider"></div>
+      <div class="budget-row" style="padding-bottom:0">
+        <div><strong>Total planned expenses</strong></div>
+        <div class="b-amt" style="color:var(--danger)">₹33,500</div>
+      </div>
+    </div>
+
+    <div class="savings-hero">
+      <div class="sh-label">Savings left after all expenses</div>
+      <div class="sh-value">₹7,323</div>
+      <div class="sh-sub">₹40,823 available − ₹33,500 expenses</div>
+    </div>
+
+    <div class="info-box">
+      <strong style="color:var(--info)">Remember:</strong> Jothi's ₹5,000 sits in a separate liability bucket — paying her does <em>not</em> come from your ₹40,823. Your savings of ₹7,323 is your actual buffer for surprises this month.
+    </div>
+
+    <div class="sec-heading" style="margin-top:32px">May at a glance</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Item</th><th>Amount</th><th>% of Budget</th></tr></thead>
+        <tbody>
+          <tr><td>Repco loan</td><td class="amt-debit">₹12,000</td><td class="mono" style="color:var(--muted)">29.4%</td></tr>
+          <tr><td>House rent</td><td class="mono">₹7,000</td><td class="mono" style="color:var(--muted)">17.1%</td></tr>
+          <tr><td>Grocery</td><td class="mono">₹7,000</td><td class="mono" style="color:var(--muted)">17.1%</td></tr>
+          <tr><td>Chennai trip</td><td class="mono">₹2,500</td><td class="mono" style="color:var(--muted)">6.1%</td></tr>
+          <tr><td>Home extra</td><td class="mono">₹2,000</td><td class="mono" style="color:var(--muted)">4.9%</td></tr>
+          <tr><td>College</td><td class="mono">₹1,000</td><td class="mono" style="color:var(--muted)">2.5%</td></tr>
+          <tr><td>Grooming & petty</td><td class="mono">₹2,000</td><td class="mono" style="color:var(--muted)">4.9%</td></tr>
+          <tr style="background:rgba(139,196,138,0.06)"><td><strong>Savings left</strong></td><td class="amt-credit"><strong>₹7,323</strong></td><td class="mono" style="color:var(--accent2)">17.9%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════════════════════ CHARTS ════════════════════ -->
+  <section class="tab-section" id="tab-charts">
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>Current balance</h3>
+        <div class="chart-sub">Total ₹98,155 · where it sits</div>
+        <div class="chart-canvas-wrap">
+          <canvas id="pie1" role="img" aria-label="Current balance breakdown pie chart">Insurance ₹20,000, Owe parents ₹42,332, Owe Jothi ₹5,000, Yours ₹30,823.</canvas>
+        </div>
+        <div class="chart-legend">
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#73726c"></span>Insurance (locked)</div><div><span class="chart-legend-value">₹20,000</span><span class="chart-legend-pct">20.4%</span></div></div>
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#E24B4A"></span>Owe parents</div><div><span class="chart-legend-value">₹42,332</span><span class="chart-legend-pct">43.1%</span></div></div>
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#EF9F27"></span>Owe Jothi</div><div><span class="chart-legend-value">₹5,000</span><span class="chart-legend-pct">5.1%</span></div></div>
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#639922"></span>Yours</div><div><span class="chart-legend-value">₹30,823</span><span class="chart-legend-pct">31.4%</span></div></div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>May budget plan</h3>
+        <div class="chart-sub">Total ₹40,823 available</div>
+        <div class="chart-canvas-wrap">
+          <canvas id="pie2" role="img" aria-label="May budget plan pie chart">Repco ₹12,000, Rent ₹7,000, Grocery ₹7,000, Chennai ₹2,500, Home ₹2,000, College ₹1,000, Grooming ₹2,000, Savings ₹7,323.</canvas>
+        </div>
+        <div class="chart-legend">
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#E24B4A"></span>Repco loan</div><div><span class="chart-legend-value">₹12,000</span><span class="chart-legend-pct">29.4%</span></div></div>
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#378ADD"></span>House rent</div><div><span class="chart-legend-value">₹7,000</span><span class="chart-legend-pct">17.1%</span></div></div>
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#1D9E75"></span>Grocery</div><div><span class="chart-legend-value">₹7,000</span><span class="chart-legend-pct">17.1%</span></div></div>
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#7F77DD"></span>Chennai trip</div><div><span class="chart-legend-value">₹2,500</span><span class="chart-legend-pct">6.1%</span></div></div>
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#D4537E"></span>Home extra</div><div><span class="chart-legend-value">₹2,000</span><span class="chart-legend-pct">4.9%</span></div></div>
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#EF9F27"></span>College</div><div><span class="chart-legend-value">₹1,000</span><span class="chart-legend-pct">2.5%</span></div></div>
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#5DCAA5"></span>Grooming & petty</div><div><span class="chart-legend-value">₹2,000</span><span class="chart-legend-pct">4.9%</span></div></div>
+          <div class="chart-legend-row"><div class="chart-legend-label"><span class="dot" style="background:#B4B2A9"></span>Savings left</div><div><span class="chart-legend-value">₹7,323</span><span class="chart-legend-pct">17.9%</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-heading">Spending vs Saving — May</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px">
+      <div style="position:relative;height:280px">
+        <canvas id="barChart" role="img" aria-label="Bar chart comparing May expenses">May expenses breakdown by category.</canvas>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>Indian Bank · A/C 7362478940 · Period 01 Apr – 01 May 2026 · Personal budgeting report</footer>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function filterTable(cat) {
+  document.querySelectorAll('#cashflow-table tbody tr').forEach(tr => {
+    tr.style.display = (cat === 'all' || tr.dataset.cat === cat) ? '' : 'none';
+  });
+}
+
+const doughnutOpts = (total) => ({
+  responsive: true,
+  maintainAspectRatio: false,
+  cutout: '60%',
+  plugins: {
+    legend: { display: false },
+    tooltip: {
+      callbacks: {
+        label: ctx => {
+          const v = ctx.parsed;
+          return ` ₹${v.toLocaleString('en-IN')} (${(v/total*100).toFixed(1)}%)`;
+        }
+      },
+      backgroundColor: '#1a1916',
+      borderColor: 'rgba(255,255,255,0.1)',
+      borderWidth: 1,
+      titleColor: '#f0ede6',
+      bodyColor: '#a0a09a',
+      padding: 10
+    }
+  },
+  animation: { animateRotate: true, duration: 800 }
+});
+
+new Chart(document.getElementById('pie1'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Insurance (locked)', 'Owe parents', 'Owe Jothi', 'Yours'],
+    datasets: [{
+      data: [20000, 42332, 5000, 30823],
+      backgroundColor: ['#73726c','#E24B4A','#EF9F27','#639922'],
+      borderWidth: 0, hoverOffset: 6
+    }]
+  },
+  options: doughnutOpts(98155)
+});
+
+new Chart(document.getElementById('pie2'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Repco loan','House rent','Grocery','Chennai trip','Home extra','College','Grooming & petty','Savings left'],
+    datasets: [{
+      data: [12000, 7000, 7000, 2500, 2000, 1000, 2000, 7323],
+      backgroundColor: ['#E24B4A','#378ADD','#1D9E75','#7F77DD','#D4537E','#EF9F27','#5DCAA5','#B4B2A9'],
+      borderWidth: 0, hoverOffset: 6
+    }]
+  },
+  options: doughnutOpts(40823)
+});
+
+new Chart(document.getElementById('barChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Repco\nloan','House\nrent','Grocery','Chennai\ntrip','Home\nextra','College','Grooming\n& petty','Savings\nleft'],
+    datasets: [{
+      label: 'Amount (₹)',
+      data: [12000, 7000, 7000, 2500, 2000, 1000, 2000, 7323],
+      backgroundColor: ['#E24B4A','#378ADD','#1D9E75','#7F77DD','#D4537E','#EF9F27','#5DCAA5','#6B8F4A'],
+      borderWidth: 0, borderRadius: 6, borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => ` ₹${ctx.parsed.y.toLocaleString('en-IN')}` },
+        backgroundColor: '#1a1916', borderColor: 'rgba(255,255,255,0.1)',
+        borderWidth: 1, titleColor: '#f0ede6', bodyColor: '#a0a09a', padding: 10
+      }
+    },
+    scales: {
+      x: { ticks: { color: '#7a7770', font: { size: 11 }, maxRotation: 0 }, grid: { color: 'rgba(255,255,255,0.04)' } },
+      y: {
+        ticks: { color: '#7a7770', font: { size: 11 }, callback: v => '₹' + (v/1000) + 'k' },
+        grid: { color: 'rgba(255,255,255,0.06)' }, border: { dash: [4,4] }
+      }
+    },
+    animation: { duration: 900 }
+  }
+});
+</script>
+</body>
+</html>
