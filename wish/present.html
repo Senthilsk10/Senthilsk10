@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Happy Birthday, Chitu 🎂</title>
+<title>Happy Birthday, Chitu</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -16,7 +16,11 @@
 
 body{
     font-family:'Inter',sans-serif;
-    background:#f4f7fb;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(255,214,153,.35), transparent 45%),
+        radial-gradient(circle at 85% 15%, rgba(150,200,255,.3), transparent 45%),
+        radial-gradient(circle at 50% 100%, rgba(255,190,190,.25), transparent 50%),
+        #fbf7f1;
     color:#2f3640;
     line-height:1.8;
 }
@@ -32,27 +36,31 @@ body{
 .card{
     max-width:900px;
     width:100%;
-    background:white;
+    background:#ffffff;
     border-radius:22px;
     overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,.08);
+    box-shadow:0 25px 70px rgba(60,40,20,.12);
+    border:1px solid rgba(0,0,0,.04);
 }
 
 .cover{
     text-align:center;
-    padding:45px 0 25px;
+    padding:50px 0 20px;
+    background:
+        linear-gradient(180deg, rgba(255,236,210,.6), rgba(255,255,255,0) 70%);
+    position:relative;
 }
 
 .cover img{
     max-width:340px;
     width:100%;
     aspect-ratio:3/4;
-    object-fit:contain;
+    object-fit:cover;
     background:#f5f5f5;
     border-radius:16px;
     padding:8px;
-    border:1px solid #e8e8e8;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    border:1px solid #eee;
+    box-shadow:0 14px 34px rgba(0,0,0,.12);
 }
 
 .content{
@@ -60,13 +68,16 @@ body{
 }
 
 h1{
-    font-size:2.4rem;
+    font-family:'Playfair Display', serif;
+    font-size:2.5rem;
     margin-bottom:8px;
+    color:#26303a;
 }
 
 .subtitle{
-    color:#6c7a89;
+    color:#8a7a63;
     margin-bottom:45px;
+    font-style:italic;
 }
 
 p{
@@ -78,35 +89,34 @@ p{
     margin-top:35px;
 }
 
-.quote{
-    margin:35px 0;
-    padding:20px 24px;
-    border-left:4px solid #7bb4ff;
-    background:#f6f9ff;
-    color:#445;
-    font-style:italic;
-}
-
 .signature{
     margin-top:50px;
     font-weight:600;
+    font-family:'Playfair Display', serif;
+    font-size:1.2rem;
+    color:#26303a;
+}
+
+.divider{
+    width:60px;
+    height:3px;
+    background:linear-gradient(90deg,#f0a868,#7bb4ff);
+    border-radius:3px;
+    margin:40px 0;
 }
 
 .footer{
     margin-top:50px;
     text-align:center;
-    color:#7d8894;
+    color:#9a8f80;
     font-size:.9rem;
+    padding-bottom:10px;
 }
 
 @media(max-width:700px){
 
 .content{
     padding:35px 25px;
-}
-
-.cover{
-    height:300px;
 }
 
 h1{
@@ -130,7 +140,7 @@ h1{
 
 <div class="content">
 
-<h1>Happy Birthday, Chitu 🎂</h1>
+<h1>Happy Birthday, Chitu</h1>
 
 <div class="subtitle">
 A small note for someone I completely misjudged.
@@ -141,7 +151,7 @@ Chithu,
 </p>
 
 <p>
-Happy Birthday, angry bird. 🎂
+Happy Birthday, angry bird.
 </p>
 
 <p>
@@ -153,16 +163,16 @@ Then came Kovalam. Bala handing you the Nandhi statue, declaring you the Nandhi 
 </p>
 
 <p>
-And then the nail cutter scene at mama's house. The moment you looked at me dead in the eye and said,
+And then the nail cutter scene at apartment. The moment you looked at me dead in the eye and said,
 <strong>"If you help them, I'll tell Abirami and she won't talk to you."</strong>
 I switched sides so fast it was embarrassing.
 Purely for survival.
 Absolutely no regrets.
 </p>
 
-<div class="quote">
-"But what I actually want to say — the real thing — is about 3 AM."
-</div>
+<p>
+But what I actually want to say — the real thing — is about 3 AM.
+</p>
 
 <p>
 That walk downstairs when everyone else was asleep. The wind that made shuttle impossible. The two rounds back and forth at the apartment entrance, just talking. I came into that conversation still carrying three years of a story I had built in my head about you. And somewhere in that conversation, that whole story just fell apart. Quietly.
@@ -181,6 +191,8 @@ Just like that.
 <p>
 You gave me three hours I'll probably think about for years. The shells, the shore, the merry-go-round, the ring game, and the roll-the-ball game where she added her five to my row. I know you saw all of it. I know you were quietly making space for it to happen. I don't have the words to properly thank you for that.
 </p>
+
+<div class="divider"></div>
 
 <div class="section">
 
